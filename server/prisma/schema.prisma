@@ -1,0 +1,179 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      Role     @default(USER)
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Связи
+  createdTasks     Task[] @relation("TaskCreator")
+  assignedTasks   Task[] @relation("TaskAssignee")
+  watchingTasks   Task[] @relation("TaskWatcher")
+  comments        Comment[]
+  notifications   Notification[]
+  departments     Department[] @relation("DepartmentHead")
+  departmentUsers DepartmentUser[]
+
+  @@map("users")
+}
+
+model Department {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  headId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Связи
+  head   User             @relation("DepartmentHead", fields: [headId], references: [id])
+  users  DepartmentUser[]
+  tasks  Task[]
+
+  @@map("departments")
+}
+
+model DepartmentUser {
+  id           String @id @default(cuid())
+  userId       String
+  departmentId String
+  role         String @default("MEMBER") // MEMBER, MANAGER
+
+  // Связи
+  user       User       @relation(fields: [userId], references: [id])
+  department Department @relation(fields: [departmentId], references: [id])
+
+  @@unique([userId, departmentId])
+  @@map("department_users")
+}
+
+model Task {
+  id          String      @id @default(cuid())
+  title       String
+  description String?
+  status      TaskStatus  @default(TODO)
+  priority    Priority    @default(MEDIUM)
+  dueDate     DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Связи
+  creatorId   String
+  assigneeId  String?
+  departmentId String?
+  projectId   String?
+
+  creator     User         @relation("TaskCreator", fields: [creatorId], references: [id])
+  assignee    User?        @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  watchers    User[]       @relation("TaskWatcher")
+  department  Department?  @relation(fields: [departmentId], references: [id])
+  project     Project?     @relation(fields: [projectId], references: [id])
+  comments    Comment[]
+  attachments Attachment[]
+
+  @@map("tasks")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  status      String   @default("ACTIVE")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Связи
+  tasks Task[]
+
+  @@map("projects")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Связи
+  userId String
+  taskId String
+
+  user User @relation(fields: [userId], references: [id])
+  task Task @relation(fields: [taskId], references: [id])
+
+  @@map("comments")
+}
+
+model Attachment {
+  id        String   @id @default(cuid())
+  filename  String
+  filepath  String
+  fileSize  Int
+  mimeType  String
+  createdAt DateTime @default(now())
+
+  // Связи
+  taskId String
+  task   Task @relation(fields: [taskId], references: [id])
+
+  @@map("attachments")
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  title     String
+  message   String
+  type      NotificationType @default(INFO)
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  // Связи
+  userId String
+  user   User @relation(fields: [userId], references: [id])
+
+  @@map("notifications")
+}
+
+// Enums
+enum Role {
+  ADMIN
+  MANAGER
+  USER
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  IN_REVIEW
+  DONE
+  CANCELLED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum NotificationType {
+  INFO
+  WARNING
+  ERROR
+  SUCCESS
+}

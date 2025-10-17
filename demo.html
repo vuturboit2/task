@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager Pro - Демо</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Главная страница входа -->
+    <div id="loginPage" class="min-h-screen gradient-bg flex items-center justify-center p-4">
+        <div class="max-w-md w-full">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-white mb-2">Task Manager Pro</h1>
+                <p class="text-blue-100">Современное управление задачами для вашей команды</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-xl p-8">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 text-center">Демо версия</h2>
+                    <p class="text-gray-600 text-center mt-2">Нажмите кнопку для входа в систему</p>
+                </div>
+                <button 
+                    onclick="showDashboard()"
+                    class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                >
+                    Войти в систему
+                </button>
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-500">
+                        Это демонстрационная версия интерфейса
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Дашборд -->
+    <div id="dashboardPage" class="min-h-screen bg-gray-50 hidden">
+        <div class="flex">
+            <!-- Боковая панель -->
+            <div class="w-64 bg-white shadow-lg h-screen flex flex-col">
+                <div class="p-6 border-b">
+                    <h1 class="text-2xl font-bold text-blue-600">Task Manager</h1>
+                    <p class="text-sm text-gray-600">Pro Edition</p>
+                </div>
+                <nav class="flex-1 p-4">
+                    <ul class="space-y-2">
+                        <li>
+                            <button class="w-full flex items-center px-4 py-3 text-left rounded-lg bg-blue-50 text-blue-700 border-r-2 border-blue-700">
+                                <i data-lucide="layout-dashboard" class="w-5 h-5 mr-3"></i>
+                                Обзор
+                            </button>
+                        </li>
+                        <li>
+                            <button class="w-full flex items-center px-4 py-3 text-left rounded-lg text-gray-700 hover:bg-gray-50">
+                                <i data-lucide="check-square" class="w-5 h-5 mr-3"></i>
+                                Задачи
+                            </button>
+                        </li>
+                        <li>
+                            <button class="w-full flex items-center px-4 py-3 text-left rounded-lg text-gray-700 hover:bg-gray-50">
+                                <i data-lucide="folder-open" class="w-5 h-5 mr-3"></i>
+                                Проекты
+                            </button>
+                        </li>
+                        <li>
+                            <button class="w-full flex items-center px-4 py-3 text-left rounded-lg text-gray-700 hover:bg-gray-50">
+                                <i data-lucide="users" class="w-5 h-5 mr-3"></i>
+                                Команда
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="p-4 border-t">
+                    <button class="w-full flex items-center px-4 py-3 text-left text-red-600 hover:bg-red-50 rounded-lg">
+                        <i data-lucide="log-out" class="w-5 h-5 mr-3"></i>
+                        Выйти
+                    </button>
+                </div>
+            </div>
+
+            <!-- Основной контент -->
+            <div class="flex-1 flex flex-col">
+                <!-- Заголовок -->
+                <header class="bg-white shadow-sm border-b px-6 py-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <button class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg">
+                                <i data-lucide="search" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2">
+                                <i data-lucide="plus" class="w-4 h-4"></i>
+                                <span>Новая задача</span>
+                            </button>
+                            <button class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg relative">
+                                <i data-lucide="bell" class="w-5 h-5"></i>
+                                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                            </button>
+                            <div class="flex items-center space-x-3">
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-900">Иван Петров</p>
+                                    <p class="text-xs text-gray-500">Менеджер</p>
+                                </div>
+                                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium">
+                                    ИП
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Контент -->
+                <main class="flex-1 p-6">
+                    <!-- Статистические карточки -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white rounded-lg shadow-sm p-6 card-hover">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-600">Всего задач</p>
+                                    <p class="text-3xl font-bold text-gray-900">24</p>
+                                </div>
+                                <div class="p-3 rounded-full bg-blue-50">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-blue-600"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-sm p-6 card-hover">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-600">Выполнено</p>
+                                    <p class="text-3xl font-bold text-gray-900">18</p>
+                                </div>
+                                <div class="p-3 rounded-full bg-green-50">
+                                    <i data-lucide="check-circle" class="w-6 h-6 text-green-600"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-sm p-6 card-hover">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-600">В работе</p>
+                                    <p class="text-3xl font-bold text-gray-900">4</p>
+                                </div>
+                                <div class="p-3 rounded-full bg-yellow-50">
+                                    <i data-lucide="clock" class="w-6 h-6 text-yellow-600"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-sm p-6 card-hover">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-600">Просрочено</p>
+                                    <p class="text-3xl font-bold text-gray-900">2</p>
+                                </div>
+                                <div class="p-3 rounded-full bg-red-50">
+                                    <i data-lucide="alert-circle" class="w-6 h-6 text-red-600"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Список задач -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-lg shadow">
+                            <div class="p-6 border-b">
+                                <h2 class="text-xl font-semibold text-gray-900">Задачи</h2>
+                            </div>
+                            <div class="divide-y divide-gray-200">
+                                <div class="p-6 hover:bg-gray-50 transition-colors border-l-4 border-l-orange-500">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex-1">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <h3 class="text-lg font-medium text-gray-900">Обновить дизайн сайта</h3>
+                                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">В работе</span>
+                                                <span class="text-xs text-gray-500">Высокий</span>
+                                            </div>
+                                            <p class="text-gray-600 mb-3">Необходимо обновить дизайн главной страницы согласно новому брендбуку</p>
+                                            <div class="flex items-center space-x-6 text-sm text-gray-500">
+                                                <div class="flex items-center space-x-1">
+                                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                                    <span>25 дек 2024</span>
+                                                </div>
+                                                <div class="flex items-center space-x-1">
+                                                    <i data-lucide="user" class="w-4 h-4"></i>
+                                                    <span>Назначено: Анна Смирнова</span>
+                                                </div>
+                                                <div class="flex items-center space-x-1">
+                                                    <i data-lucide="eye" class="w-4 h-4"></i>
+                                                    <span>3 наблюдателя</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="p-6 hover:bg-gray-50 transition-colors border-l-4 border-l-green-500">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex-1">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <h3 class="text-lg font-medium text-gray-900">Исправить баг в авторизации</h3>
+                                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Выполнено</span>
+                                                <span class="text-xs text-gray-500">Средний</span>
+                                            </div>
+                                            <p class="text-gray-600 mb-3">Пользователи не могут войти в систему через социальные сети</p>
+                                            <div class="flex items-center space-x-6 text-sm text-gray-500">
+                                                <div class="flex items-center space-x-1">
+                                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                                    <span>20 дек 2024</span>
+                                                </div>
+                                                <div class="flex items-center space-x-1">
+                                                    <i data-lucide="user" class="w-4 h-4"></i>
+                                                    <span>Назначено: Петр Иванов</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="p-6 hover:bg-gray-50 transition-colors border-l-4 border-l-red-500">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex-1">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <h3 class="text-lg font-medium text-gray-900">Подготовить отчет</h3>
+                                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">К выполнению</span>
+                                                <span class="text-xs text-gray-500">Срочный</span>
+                                            </div>
+                                            <p class="text-gray-600 mb-3">Ежемесячный отчет по продажам для руководства</p>
+                                            <div class="flex items-center space-x-6 text-sm text-gray-500">
+                                                <div class="flex items-center space-x-1">
+                                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                                    <span class="text-red-600 font-medium">Просрочено</span>
+                                                </div>
+                                                <div class="flex items-center space-x-1">
+                                                    <i data-lucide="user" class="w-4 h-4"></i>
+                                                    <span>Назначено: Мария Козлова</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Последняя активность -->
+                        <div class="bg-white rounded-lg shadow">
+                            <div class="p-6 border-b">
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="activity" class="w-5 h-5 text-gray-600"></i>
+                                    <h2 class="text-lg font-semibold text-gray-900">Последняя активность</h2>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="space-y-4">
+                                    <div class="flex items-start space-x-3">
+                                        <div class="p-2 rounded-full bg-gray-50 text-green-600">
+                                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm text-gray-900">Создана новая задача "Обновить дизайн"</p>
+                                            <p class="text-xs text-gray-500 mt-1">2 минуты назад</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start space-x-3">
+                                        <div class="p-2 rounded-full bg-gray-50 text-blue-600">
+                                            <i data-lucide="clock" class="w-4 h-4"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm text-gray-900">Задача "Исправить баг" переведена в статус "В работе"</p>
+                                            <p class="text-xs text-gray-500 mt-1">15 минут назад</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start space-x-3">
+                                        <div class="p-2 rounded-full bg-gray-50 text-red-600">
+                                            <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm text-gray-900">Задача "Подготовить отчет" просрочена</p>
+                                            <p class="text-xs text-gray-500 mt-1">1 час назад</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start space-x-3">
+                                        <div class="p-2 rounded-full bg-gray-50 text-green-600">
+                                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm text-gray-900">Задача "Настроить сервер" выполнена</p>
+                                            <p class="text-xs text-gray-500 mt-1">2 часа назад</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-6 pt-4 border-t">
+                                    <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                        Показать все уведомления
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Инициализация иконок Lucide
+        lucide.createIcons();
+
+        function showDashboard() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('dashboardPage').classList.remove('hidden');
+        }
+
+        // Анимация появления карточек
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-hover');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
