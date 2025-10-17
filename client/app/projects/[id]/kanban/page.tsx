@@ -28,7 +28,8 @@ const mockTasks = {
       dueDate: '2024-12-15',
       tags: ['UI/UX', 'Дизайн'],
       estimatedHours: 16,
-      progress: 0
+      progress: 0,
+      completedAt: undefined
     },
     {
       id: '2',
@@ -39,7 +40,8 @@ const mockTasks = {
       dueDate: '2024-12-20',
       tags: ['DevOps', 'Автоматизация'],
       estimatedHours: 12,
-      progress: 0
+      progress: 0,
+      completedAt: undefined
     }
   ],
   IN_PROGRESS: [
@@ -52,7 +54,8 @@ const mockTasks = {
       dueDate: '2024-12-10',
       tags: ['Backend', 'API'],
       estimatedHours: 24,
-      progress: 30
+      progress: 30,
+      completedAt: undefined
     },
     {
       id: '4',
@@ -63,7 +66,8 @@ const mockTasks = {
       dueDate: '2024-12-12',
       tags: ['База данных', 'Backend'],
       estimatedHours: 8,
-      progress: 65
+      progress: 65,
+      completedAt: undefined
     }
   ],
   IN_REVIEW: [
@@ -76,7 +80,8 @@ const mockTasks = {
       dueDate: '2024-12-08',
       tags: ['Тестирование', 'Безопасность'],
       estimatedHours: 6,
-      progress: 90
+      progress: 90,
+      completedAt: undefined
     }
   ],
   DONE: [
@@ -177,7 +182,8 @@ export default function KanbanPage({ params }: { params: { id: string } }) {
       dueDate: format(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), 'yyyy-MM-dd'),
       tags: [],
       estimatedHours: 8,
-      progress: 0
+      progress: 0,
+      completedAt: undefined
     }
 
     setTasks(prev => ({
