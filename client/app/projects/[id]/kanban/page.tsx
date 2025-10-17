@@ -27,7 +27,8 @@ const mockTasks = {
       assignee: { name: 'Анна Смирнова', avatar: undefined },
       dueDate: '2024-12-15',
       tags: ['UI/UX', 'Дизайн'],
-      estimatedHours: 16
+      estimatedHours: 16,
+      progress: 0
     },
     {
       id: '2',
@@ -37,7 +38,8 @@ const mockTasks = {
       assignee: { name: 'Петр Иванов', avatar: undefined },
       dueDate: '2024-12-20',
       tags: ['DevOps', 'Автоматизация'],
-      estimatedHours: 12
+      estimatedHours: 12,
+      progress: 0
     }
   ],
   IN_PROGRESS: [
@@ -50,7 +52,7 @@ const mockTasks = {
       dueDate: '2024-12-10',
       tags: ['Backend', 'API'],
       estimatedHours: 24,
-      progress: 65
+      progress: 30
     },
     {
       id: '4',
@@ -61,7 +63,7 @@ const mockTasks = {
       dueDate: '2024-12-12',
       tags: ['База данных', 'Backend'],
       estimatedHours: 8,
-      progress: 30
+      progress: 65
     }
   ],
   IN_REVIEW: [
@@ -87,6 +89,7 @@ const mockTasks = {
       dueDate: '2024-11-30',
       tags: ['Настройка', 'DevOps'],
       estimatedHours: 4,
+      progress: 100,
       completedAt: '2024-11-30'
     }
   ]
@@ -173,7 +176,8 @@ export default function KanbanPage({ params }: { params: { id: string } }) {
       assignee: { name: 'Не назначено', avatar: undefined },
       dueDate: format(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), 'yyyy-MM-dd'),
       tags: [],
-      estimatedHours: 8
+      estimatedHours: 8,
+      progress: 0
     }
 
     setTasks(prev => ({
